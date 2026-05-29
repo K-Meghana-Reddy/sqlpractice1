@@ -1,0 +1,150 @@
+SQL> select * from usersnew;
+
+   USER_ID NAME                                                                                                 EMAIL
+                                                                                                     CITY
+                                                                                          REGISTRAT
+---------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- ---------
+         1 Alice                                                                                                alice@gmail.com                                                                                      Hyderabad
+                                                                                  20-MAY-26
+         2 Arjun                                                                                                arjun@gmail.com                                                                                      Bangalore
+                                                                                  18-MAY-26
+         3 Akhil                                                                                                akhil@gmail.com                                                                                      Chennai
+                                                                                  10-MAY-26
+         4 Ananya                                                                                               ananya@gmail.com                                                                                     Mumbai
+                                                                                  04-MAY-26
+         5 Bhavana                                                                                              bhavana@gmail.com                                                                                    Hyderabad
+                                                                                  28-APR-26
+         6 Charan                                                                                               charan@gmail.com                                                                                     Delhi
+                                                                                  19-APR-26
+         7 David                                                                                                david@gmail.com                                                                                      Hyderabad
+                                                                                  12-APR-26
+         8 Esha                                                                                                 esha@gmail.com                                                                                       Pune
+                                                                                  30-MAR-26
+         9 Farhan                                                                                               farhan@gmail.com                                                                                     Bangalore
+                                                                                  22-MAR-26
+        10 Gopal                                                                                                gopal@gmail.com                                                                                      Hyderabad
+                                                                                  15-MAR-26
+        11 Harini                                                                                               harini@gmail.com                                                                                     Mumbai
+                                                                                  28-FEB-26
+        12 Ishaan                                                                                               ishaan@gmail.com                                                                                     Hyderabad
+                                                                                  20-FEB-26
+        13 Aarti                                                                                                aarti@gmail.com                                                                                      Hyderabad
+                                                                                  14-FEB-26
+        14 John                                                                                                 john@gmail.com                                                                                       Delhi
+                                                                                  25-JAN-26
+        15 Kiran                                                                                                kiran@gmail.com                                                                                      Hyderabad
+                                                                                  18-JAN-26
+
+15 rows selected.
+
+
+SQL> select registration_date from usersnew where sysdate - (registration_date) between 1 and 30;
+
+REGISTRAT
+---------
+20-MAY-26
+18-MAY-26
+10-MAY-26
+04-MAY-26
+
+
+SQL> select registration_date from usersnew order by registration_date;
+
+REGISTRAT
+---------
+18-JAN-26
+25-JAN-26
+14-FEB-26
+20-FEB-26
+28-FEB-26
+15-MAR-26
+22-MAR-26
+30-MAR-26
+12-APR-26
+19-APR-26
+28-APR-26
+04-MAY-26
+10-MAY-26
+18-MAY-26
+20-MAY-26
+
+
+SQL> select city,count(city) from usersnew group by city;
+
+CITY                                                                                                 COUNT(CITY)
+---------------------------------------------------------------------------------------------------- -----------
+Delhi                                                                                                          2
+Mumbai                                                                                                         2
+Bangalore                                                                                                      2
+Hyderabad                                                                                                      7
+Chennai                                                                                                        1
+Pune                                                                                                           1
+
+6 rows selected.
+
+
+
+
+SQL> select city,count(city) from usersnew group by city having count(city)>5;
+
+CITY                                                                                                 COUNT(CITY)
+---------------------------------------------------------------------------------------------------- -----------
+Hyderabad                                                                                                      7
+
+
+
+SQL> select name from usersnew where name like 'A%';
+
+NAME
+----------------------------------------------------------------------------------------------------
+Alice
+Arjun
+Akhil
+Ananya
+Aarti
+
+
+
+SQL> select city,count(city) from usersnew group by city having count(city)>1;
+
+CITY                                                                                                 COUNT(CITY)
+---------------------------------------------------------------------------------------------------- -----------
+Delhi                                                                                                          2
+Mumbai                                                                                                         2
+Bangalore                                                                                                      2
+Hyderabad                                                                                                      7
+
+
+SQL> select user_id,registration_date from usersnew where to_char(registration_date,'D') in(1,7);
+
+   USER_ID REGISTRAT
+---------- ---------
+         3 10-MAY-26
+         6 19-APR-26
+         7 12-APR-26
+         9 22-MAR-26
+        10 15-MAR-26
+        11 28-FEB-26
+        13 14-FEB-26
+        14 25-JAN-26
+        15 18-JAN-26
+
+9 rows selected.
+
+SQL> select min(registration_date) from usersnew;
+
+MIN(REGIS
+---------
+18-JAN-26
+
+
+
+SQL> select to_char(registration_date,'MM'),count(*) from usersnew group by to_char(registration_date,'MM');
+
+TO   COUNT(*)
+-- ----------
+04          3
+01          2
+05          4
+03          3
+02          3
