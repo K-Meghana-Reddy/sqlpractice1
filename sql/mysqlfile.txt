@@ -148,3 +148,99 @@ TO   COUNT(*)
 05          4
 03          3
 02          3
+
+
+SQL> select * from eventsnew1;
+
+  EVENT_ID TITLE
+---------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DESCRITTN
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CITY                                                                                                 SD                                                                          ED
+                     STATUS                    ORGID
+---------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------- --------------------------------------------------------------------------- -------------------- ----------
+       101 Tech Conference
+Technology and AI conference
+Hyderabad                                                                                            10-JUN-26 09.00.00.000000 AM                                                12-JUN-26 06.00.00.000000 PM
+                     upcoming                      1
+
+       102 Music Fest
+Annual music festival
+Chennai                                                                                              01-MAY-26 10.00.00.000000 AM                                                01-MAY-26 08.00.00.000000 PM
+                     completed                     2
+
+       103 Startup Summit
+Entrepreneurship event
+Bangalore                                                                                            15-JUL-26 09.00.00.000000 AM                                                18-JUL-26 05.00.00.000000 PM
+                     upcoming                      3
+
+       104 Art Expo
+Modern art exhibition
+Mumbai                                                                                               20-APR-26 09.00.00.000000 AM                                                21-APR-26 06.00.00.000000 PM
+                     completed                     5
+
+       105 AI Workshop
+Hands-on AI training
+Hyderabad                                                                                            20-JUN-26 09.00.00.000000 AM                                                23-JUN-26 05.00.00.000000 PM
+                     upcoming                      4
+
+       106 Business Meet
+Corporate networking event
+Delhi                                                                                                10-MAR-26 09.00.00.000000 AM                                                13-MAR-26 06.00.00.000000 PM
+                     completed                     1
+
+
+6 rows selected.
+
+
+
+SQL> select name,title from eventsnew1 inner join usersnew on eventsnew1.orgid = usersnew.user_id;
+
+NAME                                                                                                 TITLE
+---------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Alice                                                                                                Business Meet
+Alice                                                                                                Tech Conference
+Arjun                                                                                                Music Fest
+Akhil                                                                                                Startup Summit
+Ananya                                                                                               AI Workshop
+Bhavana                                                                                              Art Expo
+
+6 rows selected.
+
+
+
+SQL> select title from eventsnew1 where status='upcoming';
+
+TITLE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Tech Conference
+Startup Summit
+AI Workshop
+
+SQL> select city,count(*) from eventsnew1 group by city;
+
+CITY                                                                                                   COUNT(*)
+---------------------------------------------------------------------------------------------------- ----------
+Delhi                                                                                                         1
+Mumbai                                                                                                        1
+Bangalore                                                                                                     1
+Hyderabad                                                                                                     2
+Chennai                                                                                                       1
+
+
+SQL> select title from eventsnew1 where ed-sd> interval '2' day;
+
+TITLE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Tech Conference
+Startup Summit
+AI Workshop
+Business Meet
+
+
+SQL> select eventsnew1.title,eventsnew1.status,eventsnew1.orgid,usersnew.city from eventsnew1 inner join usersnew on eventsnew1.orgid=usersnew.user_id where usersnew.city = 'Hyderabad' and eventsnew1.status ='completed';
+
+TITLE                                                                                                                                                                                                    STATUS                    ORGID CITY
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------- ---------- ----------------------------------------------------------------------------------------------------
+Art Expo                                                                                                                                                                                                 completed                     5 Hyderabad
+Business Meet                                                                                                                                                                                            completed                     1 Hyderabad
